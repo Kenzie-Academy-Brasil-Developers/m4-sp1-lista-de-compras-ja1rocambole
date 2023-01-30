@@ -5,14 +5,14 @@ import { ensureListExists, validateList } from "./middlewares";
 const app: Application = express();
 app.use(json());
 
-app.post("/purchaseList", createList);
+app.post("/purchaseList", validateList, createList);
 
 app.get("/purchaseList", catchAllList);
 app.get("/purchaseList/:id", ensureListExists, catchOneList);
 
 app.patch("/purchaseList/:id/");
 
-app.delete("/purchaseList/:id/item", ensureListExists);
+app.delete("/purchaseList/:id", ensureListExists, deleteOneList);
 
 const PORT: number = 3000;
 const runningMsg: string = `Server running on http://localhost:${PORT}`;
