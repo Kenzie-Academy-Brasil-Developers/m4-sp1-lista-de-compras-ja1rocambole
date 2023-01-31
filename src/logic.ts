@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { DataList, List, ListIdentified, ListRequiredKeys } from "./interface";
+import { List } from "./interface";
 import { dataBase, ids } from "./database";
 
 export const createList = (
@@ -18,12 +18,10 @@ export const createList = (
   return response.status(201).json(listIdentified);
 };
 
-//ROTA DE LEITURA DAS LISTAS
 export const catchAllList = (request: Request, response: Response) => {
   return response.status(200).json(dataBase);
 };
 
-//
 export const catchOneList = (
   { findListIndex }: Request,
   response: Response
@@ -31,10 +29,25 @@ export const catchOneList = (
   return response.status(200).json(dataBase[findListIndex]);
 };
 
-// ROTA PARA EDIÇÃO
-// export const
+export const updateItemList = (request: Request, response: Response) => {
+  const { findListIndex, findItemIndex } = request;
 
-//ROTA PARA DELETAR
+  dataBase[findListIndex].data[findItemIndex] = {
+    ...dataBase[findListIndex].data[findItemIndex],
+    ...request.body,
+  };
+
+  return response.status(200).json(dataBase[findListIndex].data[findItemIndex]);
+};
+
+export const deleteOneItem = (
+  { findListIndex, findItemIndex }: Request,
+  response: Response
+) => {
+  dataBase[findListIndex].data.splice(findItemIndex, 1);
+
+  return response.status(204).json();
+};
 
 export const deleteOneList = (
   { findListIndex }: Request,

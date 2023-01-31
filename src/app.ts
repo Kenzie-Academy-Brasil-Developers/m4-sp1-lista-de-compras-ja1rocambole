@@ -1,6 +1,17 @@
-import express, { Application, json, Request, Response } from "express";
-import { catchAllList, catchOneList, createList, deleteOneList } from "./logic";
-import { ensureListExists, validateList } from "./middlewares";
+import express, { Application, json } from "express";
+import {
+  catchAllList,
+  catchOneList,
+  createList,
+  deleteOneItem,
+  deleteOneList,
+  updateItemList,
+} from "./logic";
+import {
+  ensureListExists,
+  validateItemList,
+  validateList,
+} from "./middlewares";
 
 const app: Application = express();
 app.use(json());
@@ -10,7 +21,21 @@ app.post("/purchaseList", validateList, createList);
 app.get("/purchaseList", catchAllList);
 app.get("/purchaseList/:id", ensureListExists, catchOneList);
 
-app.patch("/purchaseList/:id/");
+//🚨
+app.patch(
+  "/purchaseList/:id/:itemName",
+  ensureListExists,
+  validateItemList,
+  updateItemList
+);
+//🚨
+
+app.delete(
+  "/purchaseList/:id/:itemName",
+  ensureListExists,
+  validateItemList,
+  deleteOneItem
+);
 
 app.delete("/purchaseList/:id", ensureListExists, deleteOneList);
 
