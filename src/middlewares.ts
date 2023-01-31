@@ -61,7 +61,7 @@ export const validateList = (
     if (!hasRequiredDataKeys) {
       return response
         .status(400)
-        .json('Required fields are: "name" and "quantity"');
+        .json({ message: 'Required fields are: "name" and "quantity"' });
     }
 
     const hasRequiredDataKeysOver = payloadDataKeys.every((key) => {
@@ -73,7 +73,7 @@ export const validateList = (
     if (!hasRequiredDataKeysOver) {
       return response
         .status(400)
-        .json('Required fields are: "name" and "quantity"');
+        .json({ message: 'Required fields are: "name" and "quantity"' });
     }
   });
 
@@ -143,7 +143,7 @@ export const validateItemList = (
   if (!hasRequiredDataKeys) {
     return response
       .status(400)
-      .json('Required fields are: "name" and "quantity"');
+      .json({ message: 'Required fields are: "name" and "quantity"' });
   }
 
   const hasRequiredDataKeysOver = keys.every((key) => {
@@ -158,7 +158,7 @@ export const validateItemList = (
   if (!hasRequiredDataKeysOver) {
     return response
       .status(400)
-      .json('Required fields are: "name" and "quantity"');
+      .json({ message: 'Required fields are: "name" and "quantity"' });
   }
 
   if (findItem === -1) {
